@@ -27,6 +27,8 @@ Install the requirements:
 pip install -r infovoid/requirements/dev.txt
 ```
 
+*Hint- change directory ```bash cd```  into sub-level 'infovoid'
+
 Apply the migrations:
 
 ```bash
