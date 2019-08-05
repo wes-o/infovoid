@@ -1,0 +1,62 @@
+{% load staticfiles %}<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Infovoid{% endblock %}</title>
+  <link rel="icon" href="{% static 'img/favicon.ico' %}">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="mask-icon" href="{% static 'img/drawing.svg' %}" color="#0e1936">
+  <link href="{% static 'css/vendor/normalize.css' %}" rel="stylesheet">
+  <link href="{% static 'css/infovoid.css' %}" rel="stylesheet">
+  {% block stylesheet %}{% endblock %}
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <a href="{% url 'front_page' %}">Infovoid</a>
+      {% comment %}
+      {% if user.is_authenticated %}
+        <nav><a href="{% url 'front_page' %}">{{ user.username }}</a> / <a href="{% url 'logout' %}">logout</a></nav>
+      {% else %}
+        <nav><a href="{% url 'signup' %}">sign up</a> / <a href="{% url 'login' %}">login</a></nav>
+      {% endif %}
+      {% endcomment %}
+      <nav>&nbsp;</nav>
+    </header>
+    <main>
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">
+        <a href="javascript:void(0);" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        {{ message }}
+      </div>
+    {% endfor %}
+    {% block menu %}
+      <h1>top stories<span class="utc"></span></h1>
+      {% include 'includes/menu.html' %}
+    {% endblock %}
+    {% block content %}{% endblock %}
+    </main>
+    <div class="push"></div>
+  </div>
+  <footer>
+    <a href="{% url 'about' %}">About</a>
+    <a href="{% url 'status' %}">Status</a>
+    <a href="https://github.com/wes-o/infovoid/" target="_blank">Github</a>
+    {% comment %}
+    <a href="{% url 'cookies' %}">cookies</a>
+    <a href="{% url 'privacy' %}">privacy</a>
+    <a href="{% url 'terms' %}">terms</a>
+    {% endcomment %}
+  </footer>
+  <script src="{% static 'js/ga.js' %}"></script>
+  <script src="{% static 'js/vendor/jquery-1.11.3.min.js' %}"></script>
+  <script src="{% static 'js/vendor/mustache.min.js' %}"></script>
+  <script src="{% static 'js/vendor/moment.min.js' %}"></script>
+  <script src="{% static 'js/vendor/moment-timezone-with-data-2010-2020.min.js' %}"></script>
+  <script src="{% static 'js/infovoid.js' %}"></script>
+  {% block javascript %}{% endblock %}
+</body>
+</html>
